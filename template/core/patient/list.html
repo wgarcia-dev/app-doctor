@@ -27,9 +27,16 @@
                             </select>
                         </div>
                       </form>
-                      <a class="btn btn-primary fw-bold  mt-3 mt-md-0" href="{% url 'core:patient_create' %}">
-                                <i class="fas fa-plus me-2"></i>Nuevo Paciente
-                      </a>
+                      <div class="d-flex gap-2 mt-3 mt-md-0">
+                        {% if enable_reports %}
+                          <a class="btn btn-outline-danger fw-bold" href="{% url 'reports:patients_csv' %}">
+                            <i class="fas fa-file-csv me-2"></i>Exportar reporte CSV
+                          </a>
+                        {% endif %}
+                        <a class="btn btn-primary fw-bold" href="{% url 'core:patient_create' %}">
+                          <i class="fas fa-plus me-2"></i>Nuevo Paciente
+                        </a>
+                      </div>
                     </div>
 
                     <!-- Patient Table -->

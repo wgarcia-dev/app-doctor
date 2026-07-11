@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
+from doctor.config_product import PRODUCT_VARIANTS
 # Cargar las variables de entorno desde el archivo .env
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     'apps.core.apps.CoreConfig',
     'apps.attention.apps.AttentionConfig',
     'apps.security.apps.SecurityConfig',
+    'apps.reports.apps.ReportsConfig',
     # apps de terceros
     'django_extensions',
     'widget_tweaks',
@@ -138,6 +141,21 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)#carpeta fisica de archivo
 MEDIA_ROOT = os.path.join(BASE_DIR,'media') # carpeta fisica de archivos de Imagenes
 MEDIA_URL = '/media/' # 
 LOGIN_URL = '/'
+
+# Funcionalidad opcional de la línea de productos. Al estar en False, las
+# rutas y el botón de exportación de reportes no se publican.
+PRODUCT_VARIANT = os.environ.get('PRODUCT_VARIANT', 'B').upper()
+try:
+    PRODUCT_CONFIG = PRODUCT_VARIANTS[PRODUCT_VARIANT]
+except KeyError as error:
+    valid_variants = ', '.join(PRODUCT_VARIANTS)
+    raise ImproperlyConfigured(
+        f"PRODUCT_VARIANT debe ser una de: {valid_variants}. Valor recibido: {PRODUCT_VARIANT}."
+    ) from error
+
+# Banderas de características derivadas de la variante elegida.
+ENABLE_REPORTS = PRODUCT_CONFIG['ENABLE_REPORTS']
+ENABLE_NOTIFICATIONS = PRODUCT_CONFIG['ENABLE_NOTIFICATIONS']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -6,6 +6,7 @@ from apps.attention.models import (
     DetalleAtencion,
     ServiciosAdicionales,
     CostosAtencion,
+    Certificado,
 )
 
 # Admin para HorarioAtencion
@@ -20,6 +21,11 @@ class CitaMedicaAdmin(admin.ModelAdmin):
     list_display = ('paciente', 'fecha', 'hora_cita', 'estado')
     list_filter = ('estado', 'fecha')
     search_fields = ('paciente__nombre',)
+
+@admin.register(Certificado)
+class CertificadoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'paciente', 'fecha_emision', 'emitido_por')
+    search_fields = ('paciente__nombres', 'paciente__apellidos')
 
 # Admin para DetalleAtencion
 class DetalleAtencionInline(admin.TabularInline):

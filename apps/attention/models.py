@@ -55,6 +55,23 @@ class CitaMedica(models.Model):
         verbose_name = "Cita Médica"
         verbose_name_plural = "Citas Médicas"
 
+
+class Certificado(models.Model):
+    """Constancia emitida para un paciente, con respaldo de la atención si aplica."""
+    paciente = models.ForeignKey(Paciente, on_delete=models.PROTECT, related_name='certificados', verbose_name='Paciente')
+    atencion = models.ForeignKey('Atencion', on_delete=models.SET_NULL, null=True, blank=True, related_name='certificados', verbose_name='Atención relacionada')
+    motivo = models.TextField(verbose_name='Contenido del certificado')
+    fecha_emision = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de emisión')
+    emitido_por = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='certificados_emitidos', verbose_name='Emitido por')
+
+    class Meta:
+        ordering = ['-fecha_emision']
+        verbose_name = 'Certificado'
+        verbose_name_plural = 'Certificados'
+
+    def __str__(self):
+        return f"Certificado #{self.pk} - {self.paciente.nombre_completo}"
+
 # Modelo que representa la cabecera de una atención médica.
 # Contiene la información general del paciente, diagnóstico, motivo de consulta y tratamiento.
 class Atencion(models.Model):

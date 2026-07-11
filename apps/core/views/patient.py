@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.conf import settings
 from apps.core.forms.patient import PatientForm
 from apps.core.models import Paciente
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,6 +27,11 @@ class PatientListView(LoginRequiredMixin,ListViewMixin,ListView):
             self.query.add(Q(cedula__icontains=q1), Q.OR) 
         if sex == "M" or sex=="F": self.query.add(Q(sexo__icontains=sex), Q.AND)   
         return self.model.objects.filter(self.query).order_by('apellidos')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['enable_reports'] = settings.ENABLE_REPORTS
+        return context
     
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)

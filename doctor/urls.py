@@ -23,5 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls',namespace='core')),
     path('', include('apps.attention.urls',namespace='attention')),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # configuracion imagenes
+]
+
+if settings.ENABLE_REPORTS:
+    urlpatterns.append(path('reports/', include('apps.reports.urls', namespace='reports')))
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # configuracion imagenes
