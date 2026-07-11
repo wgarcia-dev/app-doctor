@@ -1,0 +1,105 @@
+# ==========================================
+# Archivos específicos de Python y Caché
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==========================================
+# Entornos Virtuales (¡Crucial!)
+# ==========================================
+.venv/
+venv/
+ENV/
+env/
+ENV*/
+pip-delete-this-directory.txt
+.tox/
+.nox/
+.pew/
+.xprocess/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ==========================================
+# Configuración de Entorno y Secretos
+# ==========================================
+# NUNCA subas tus credenciales o tokens al repositorio
+.env
+.yamlenv
+.secret
+*.pem
+*.key
+
+# ==========================================
+# Herramientas de Testing, Cobertura y Linters
+# ==========================================
+htmlcov/
+.blueprint
+.htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.cron/
+
+# ==========================================
+# Cuadernos de Jupyter
+# ==========================================
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# ==========================================
+# IDEs y Editores de Código (VS Code, PyCharm, etc.)
+# ==========================================
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ------------------------------------------
+# Archivos del Sistema (OS)
+# ------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
